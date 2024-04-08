@@ -34,13 +34,14 @@ void GuessingGame()
         }
     }
     int incorrectCount = 0;
+    
     while (incorrectCount < 3 && guess1 != secretNumber)
     {
         
         if (incorrectCount < 3)
         {
             incorrectCount++;
-            Console.WriteLine("That was awful, try again!");
+            Console.WriteLine($"Your guess: {guess1}. You have {4 - incorrectCount} guesses left.");
             guess1 = 0;
             GuessingTries();
      
