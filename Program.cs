@@ -9,35 +9,51 @@ void GuessingGame()
     Console.WriteLine("Welcome to Oinky Toinky's Guessing Game!");
     int guess1 = 0;
     int secretNumber = 42;
+    GuessingTries();
 
-    while (guess1 < 1 || guess1 > 100)
+
+    void GuessingTries()
     {
-        Console.Write("Guess a number: ");
-        try
+        while (guess1 < 1 || guess1 > 100)
         {
-            int response = int.Parse(Console.ReadLine()!.Trim());
-            guess1 = response;
-
-            if (guess1 < 1 || guess1 > 100)
+            Console.Write("Guess a number: ");
+            try
             {
-                Console.WriteLine("Please choose a number 1-100!");
+                int response = int.Parse(Console.ReadLine()!.Trim());
+                guess1 = response;
+
+                if (guess1 < 1 || guess1 > 100)
+                {
+                    Console.WriteLine("Please choose a number 1-100!");
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please choose only intergers!");
             }
         }
-        catch (FormatException)
+    }
+    int incorrectCount = 0;
+    while (incorrectCount < 3 && guess1 != secretNumber)
+    {
+        
+        if (incorrectCount < 3)
         {
-            Console.WriteLine("Please choose only intergers!");
+            incorrectCount++;
+            Console.WriteLine("That was awful, try again!");
+            guess1 = 0;
+            GuessingTries();
+     
         }
     }
-
-    if (guess1 == secretNumber){
-        Console.WriteLine("Hazzuh you did it! I'm so proud of you <3");
-    } else {
+    if (incorrectCount == 3)
+    {
         Console.WriteLine("DIE");
     }
+    else
+    {
+        Console.WriteLine("Good job, im so proud of you!");
+    }
 }
-
 GuessingGame();
 
-//creating secret number variable hard coded
-// remove display of users guess
-//if else to compare guess to secret number display either success or failure message
