@@ -1,31 +1,34 @@
 ﻿// Create function "GuessingGame"
-    // Display greeting in Console.Write
-    // Declare int variable for user's guess, guess1
-    // try & catch to ensure we get user's guess... Console.ReadLine
-    // Console.WriteLine guess1
+// Display greeting in Console.Write
+// Declare int variable for user's guess, guess1
+// try & catch to ensure we get user's guess... Console.ReadLine
+// Console.WriteLine guess1
+using System.Numerics;
+
 Random random = new Random();
 
 
 void GuessingGame()
 {
 
-     int guess1 = 0;
+    int guess1 = 0;
 
     int secretNumber = random.Next(1, 101);
     
     
     Console.WriteLine("Welcome to Oinky Toinky's Guessing Game!");
     int choice = 0;
-      int incorrectCount = -5;
+    int incorrectCount = -5;
     while ( choice == 0) {
         Console.WriteLine(@"1. Easy
         2. Medium
-        3. Hard");
+        3. Hard
+        4. Cheater");
 
         try {
             int response = int.Parse(Console.ReadLine()!.Trim());
             choice = response;
-            if (choice > 0 && choice < 4){
+            if (choice > 0 && choice < 5){
                 GuessingTries( choice );
             }
         }
@@ -54,6 +57,11 @@ void GuessingGame()
         else if ( choice == 3 && incorrectCount == -5){
             incorrectCount = 0;
         }
+        else if (choice == 4 && incorrectCount == -5) {
+            incorrectCount = int.MinValue;
+        }
+       
+
         
 
         while (guess1 < 1 || guess1 > 100)
@@ -93,10 +101,10 @@ You have {4 - incorrectCount} guesses left.");
                 Console.WriteLine(@$"Your guess is too Low Bro!
 Your guess: {guess1}. 
 You have {4 - incorrectCount} guesses left.");
-Console.WriteLine(incorrectCount);
+
             }
         
-            Console.WriteLine($"{secretNumber}");
+            
             guess1 = 0;
             GuessingTries(choice);
      
