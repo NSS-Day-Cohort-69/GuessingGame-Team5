@@ -8,16 +8,54 @@ Random random = new Random();
 
 void GuessingGame()
 {
-    Console.WriteLine("Welcome to Oinky Toinky's Guessing Game!");
-    int guess1 = 0;
+
+     int guess1 = 0;
 
     int secretNumber = random.Next(1, 101);
+    
+    
+    Console.WriteLine("Welcome to Oinky Toinky's Guessing Game!");
+    int choice = 0;
+      int incorrectCount = -5;
+    while ( choice == 0) {
+        Console.WriteLine(@"1. Easy
+        2. Medium
+        3. Hard");
 
-    GuessingTries();
+        try {
+            int response = int.Parse(Console.ReadLine()!.Trim());
+            choice = response;
+            if (choice > 0 && choice < 4){
+                GuessingTries( choice );
+            }
+        }
+        catch (FormatException){
+            Console.WriteLine("Please only choose integers");
+        }
+        
+    }
+    
+   
 
+    
+        
 
-    void GuessingTries()
+    void GuessingTries(int choice)
     {
+    
+    
+        
+        if ( choice == 1 && incorrectCount == -5){
+            incorrectCount = -4;
+        }
+        else if (choice == 2 && incorrectCount == -5){
+            incorrectCount = -2;
+        }
+        else if ( choice == 3 && incorrectCount == -5){
+            incorrectCount = 0;
+        }
+        
+
         while (guess1 < 1 || guess1 > 100)
         {
             Console.Write("Guess a number: ");
@@ -37,12 +75,13 @@ void GuessingGame()
             }
         }
     }
-    int incorrectCount = 0;
+   
     
-    while (incorrectCount <= 3 && guess1 != secretNumber)
+    
+    while (incorrectCount < 3 && guess1 != secretNumber)
     {
         
-        if (incorrectCount <= 3)
+        if (incorrectCount < 3)
         {
             incorrectCount++;
             if (guess1 > secretNumber){
@@ -54,15 +93,17 @@ You have {4 - incorrectCount} guesses left.");
                 Console.WriteLine(@$"Your guess is too Low Bro!
 Your guess: {guess1}. 
 You have {4 - incorrectCount} guesses left.");
+Console.WriteLine(incorrectCount);
             }
         
             Console.WriteLine($"{secretNumber}");
             guess1 = 0;
-            GuessingTries();
+            GuessingTries(choice);
      
         }
     }
-    if (incorrectCount == 4)
+    if (incorrectCount == 3 && guess1 != secretNumber)
+    
     {
         Console.WriteLine("DIE! GAME OVER!");
     }
