@@ -45,7 +45,17 @@ void GuessingGame()
         if (incorrectCount <= 3)
         {
             incorrectCount++;
-            Console.WriteLine($"Wrong! Your guess: {guess1}. You have {4 - incorrectCount} guesses left.");
+            if (guess1 > secretNumber){
+                Console.WriteLine(@$"Your guess was too high bro! 
+Your guess: {guess1}. 
+You have {4 - incorrectCount} guesses left.");
+            }
+            else if ( guess1 < secretNumber){
+                Console.WriteLine(@$"Your guess is too Low Bro!
+Your guess: {guess1}. 
+You have {4 - incorrectCount} guesses left.");
+            }
+        
             Console.WriteLine($"{secretNumber}");
             guess1 = 0;
             GuessingTries();
